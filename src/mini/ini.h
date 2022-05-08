@@ -105,9 +105,7 @@ namespace mINI {
 		#endif
 
 		inline void toLower(std::string& str) {
-			std::transform(str.begin(), str.end(), str.begin(), [](const char c) {
-				return static_cast<char>(std::tolower(c));
-			});
+			std::transform(str.begin(), str.end(), str.begin(), std::tolower);
 		}
 
 		inline void trim(std::string& str) {
