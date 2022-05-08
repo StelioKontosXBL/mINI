@@ -97,11 +97,11 @@
 
 namespace mINI {
 	namespace INIStringUtil {
-		const char* const whitespaceDelimiters = " \t\n\r\f\v";
+		static const char* const whitespaceDelimiters = " \t\n\r\f\v";
 		#ifdef _WIN32
-		const char* const endl = "\r\n";
+		static const char* const endl = "\r\n";
 		#else
-		const char* const endl = "\n";
+		static const char* const endl = "\n";
 		#endif
 
 		inline void toLower(std::string& str) {
