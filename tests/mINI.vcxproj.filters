@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="tests">
+      <UniqueIdentifier>{663761fd-a1b5-42d4-986f-ff55db09b4ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{b65c9ebc-baed-4fb8-a013-3e467a424ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendor">
+      <UniqueIdentifier>{9fcdedb3-637a-4b7c-a56b-4c27c7269aa5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mINI.cpp" />
+    <ClCompile Include="testcasesens.cpp" />
+    <ClCompile Include="testcopy.cpp" />
+    <ClCompile Include="testgenerate.cpp" />
+    <ClCompile Include="testhuge.cpp" />
+    <ClCompile Include="testread.cpp" />
+    <ClCompile Include="testutf8.cpp" />
+    <ClCompile Include="testwrite.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="mini\ini.h" />
+    <ClInclude Include="lest.hpp" />
+  </ItemGroup>
+</Project>
