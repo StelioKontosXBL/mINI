@@ -5,3 +5,37 @@
 /tests/*.ini
 /tests/*.test
 /tests/*.exe
+
+#####################
+### Visual Studio ###
+#####################
+## VS 2010 ##
+*.opensdf
+*.sdf
+*.suo
+
+## VS 2017 ##
+.vs/
+
+#####################
+### Build Results ###
+#####################
+_Build/
+[Dd]ebug/
+[Rr]elease/
+[Rr]elease_LTCG/
+[Rr]elease*/
+x64/
+x86/
+
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+## Object files ##
+*.obj
+
+## Linker output ##
+*.lib
+*.map
+*.exp
