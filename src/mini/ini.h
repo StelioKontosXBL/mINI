@@ -80,6 +80,7 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#pragma once
 #ifndef MINI_INI_H_
 #define MINI_INI_H_
 
@@ -97,17 +98,23 @@
 namespace mINI {
 	namespace INIStringUtil {
 		const char* const whitespaceDelimiters = " \t\n\r\f\v";
+		#ifdef _WIN32
+		const char* const endl = "\r\n";
+		#else
+		const char* const endl = "\n";
+		#endif
+
 		inline void trim(std::string& str) {
 			str.erase(str.find_last_not_of(whitespaceDelimiters) + 1);
 			str.erase(0, str.find_first_not_of(whitespaceDelimiters));
 		}
-		#ifndef MINI_CASE_SENSITIVE
+
 		inline void toLower(std::string& str) {
 			std::transform(str.begin(), str.end(), str.begin(), [](const char c) {
 				return static_cast<char>(std::tolower(c));
 			});
 		}
-		#endif
+
 		inline void replace(std::string& str, std::string const& a, std::string const& b) {
 			if (!a.empty()) {
 				std::size_t pos = 0;
@@ -117,11 +124,6 @@ namespace mINI {
 				}
 			}
 		}
-		#ifdef _WIN32
-		const char* const endl = "\r\n";
-		#else
-		const char* const endl = "\n";
-		#endif
 	}
 
 	template<typename T>
@@ -167,6 +169,7 @@ namespace mINI {
 			std::size_t index = (hasIt) ? it->second : setEmpty(key);
 			return data[index].second;
 		}
+
 		T get(std::string key) const {
 			INIStringUtil::trim(key);
 			#ifndef MINI_CASE_SENSITIVE
@@ -178,6 +181,7 @@ namespace mINI {
 			}
 			return T(data[it->second].second);
 		}
+
 		bool has(std::string key) const {
 			INIStringUtil::trim(key);
 			#ifndef MINI_CASE_SENSITIVE
@@ -185,6 +189,7 @@ namespace mINI {
 			#endif
 			return (dataIndexMap.count(key) == 1);
 		}
+
 		void set(std::string key, T obj) {
 			INIStringUtil::trim(key);
 			#ifndef MINI_CASE_SENSITIVE
@@ -198,6 +203,7 @@ namespace mINI {
 				data.emplace_back(key, obj);
 			}
 		}
+
 		void set(T_MultiArgs const& multiArgs) {
 			for (auto const& it : multiArgs) {
 				auto const& key = it.first;
@@ -205,6 +211,7 @@ namespace mINI {
 				set(key, obj);
 			}
 		}
+
 		bool remove(std::string key) {
 			INIStringUtil::trim(key);
 			#ifndef MINI_CASE_SENSITIVE
@@ -225,13 +232,14 @@ namespace mINI {
 			}
 			return false;
 		}
+
 		void clear() {
 			data.clear();
 			dataIndexMap.clear();
 		}
-		std::size_t size() const {
-			return data.size();
-		}
+
+		std::size_t size() const { return data.size(); }
+
 		const_iterator begin() const { return data.begin(); }
 		const_iterator end() const { return data.end(); }
 	};
@@ -383,7 +391,6 @@ namespace mINI {
 	};
 
 	class INIGenerator {
-	private:
 		std::ofstream fileWriteStream;
 
 	public:
@@ -392,6 +399,7 @@ namespace mINI {
 		INIGenerator(std::string const& filename) {
 			fileWriteStream.open(filename, std::ios::out | std::ios::binary);
 		}
+
 		~INIGenerator() { }
 
 		bool operator<<(INIStructure const& data) {
@@ -629,8 +637,7 @@ namespace mINI {
 
 	public:
 		INIFile(std::string const& filename)
-			: filename(filename) {
-		}
+			: filename(filename) { }
 
 		~INIFile() { }
 
@@ -644,6 +651,7 @@ namespace mINI {
 			INIReader reader(filename);
 			return reader >> data;
 		}
+
 		bool generate(INIStructure const& data, bool pretty = false) const {
 			if (filename.empty()) {
 				return false;
@@ -652,6 +660,7 @@ namespace mINI {
 			generator.prettyPrint = pretty;
 			return generator << data;
 		}
+
 		bool write(INIStructure& data, bool pretty = false) const {
 			if (filename.empty()) {
 				return false;
