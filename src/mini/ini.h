@@ -194,7 +194,8 @@ namespace mINI {
 		}
 
 		void set(T_MultiArgs const& multiArgs) {
-			for (auto const& it : multiArgs) {
+			for (auto iter = multiArgs.begin(); iter != multiArgs.end(); ++iter) {
+				auto const& it = *iter;
 				auto const& key = it.first;
 				auto const& obj = it.second;
 				set(key, obj);
@@ -211,7 +212,8 @@ namespace mINI {
 				std::size_t index = it->second;
 				data.erase(data.begin() + index);
 				dataIndexMap.erase(it);
-				for (auto& it2 : dataIndexMap) {
+				for (auto iter = dataIndexMap.begin(); iter != dataIndexMap.end(); ++iter) {
+					auto& it2 = *iter;
 					auto& vi = it2.second;
 					if (vi > index) {
 						vi--;
@@ -326,7 +328,8 @@ namespace mINI {
 			std::string section;
 			bool inSection = false;
 			INIParser::T_ParseValues parseData;
-			for (auto const& line : fileLines) {
+			for (auto iter = fileLines.begin(); iter != fileLines.end(); ++iter) {
+				auto const& line = *iter;
 				auto parseResult = INIParser::parseLine(line, parseData);
 				if (parseResult == INIParser::PDataType::PDATA_SECTION) {
 					inSection = true;
@@ -587,7 +590,8 @@ namespace mINI {
 					if (data.has(sectionCurrent) && original.has(sectionCurrent)) {
 						auto const& collection = data[sectionCurrent];
 						auto const& collectionOriginal = original[sectionCurrent];
-						for (auto const& it : collection) {
+						for (auto iter = collection.begin(); iter != collection.end(); ++iter) {
+							auto const& it = *iter;
 							auto key = it.first;
 							if (collectionOriginal.has(key)) {
 								continue;
@@ -613,7 +617,8 @@ namespace mINI {
 					}
 				}
 			}
-			for (auto const& it : data) {
+			for (auto iter = data.begin(); iter != data.end(); ++iter) {
+				auto const& it = *iter;
 				auto const& section = it.first;
 				if (original.has(section)) {
 					continue;
@@ -623,7 +628,8 @@ namespace mINI {
 				}
 				output.emplace_back("[" + section + "]");
 				auto const& collection = it.second;
-				for (auto const& it2 : collection) {
+				for (auto iter = collection.begin(); iter != collection.end(); ++iter) {
+					auto const& it2 = *iter;
 					auto key = it2.first;
 					auto value = it2.second;
 					INIStringUtil::replace(key, "=", "\\=");
