@@ -143,7 +143,7 @@ namespace mINI {
 			for (std::size_t i = 0; i < data_size; ++i) {
 				auto const& key = other.data[i].first;
 				auto const& obj = other.data[i].second;
-				data.emplace_back(key, obj);
+				data.emplace_back(T_DataItem(key, obj));
 			}
 			dataIndexMap = T_DataIndexMap(other.dataIndexMap);
 		}
@@ -189,7 +189,7 @@ namespace mINI {
 				data[it->second].second = obj;
 			} else {
 				dataIndexMap[key] = data.size();
-				data.emplace_back(key, obj);
+				data.emplace_back(T_DataItem(key, obj));
 			}
 		}
 
@@ -241,7 +241,7 @@ namespace mINI {
 		inline std::size_t setEmpty(std::string& key) {
 			std::size_t index = data.size();
 			dataIndexMap[key] = index;
-			data.emplace_back(key, T());
+			data.emplace_back(T_DataItem(key, T()));
 			return index;
 		}
 	};
@@ -624,7 +624,7 @@ namespace mINI {
 					continue;
 				}
 				if (prettyPrint && output.size() > 0 && !output.back().empty()) {
-					output.emplace_back();
+					output.emplace_back(std::string());
 				}
 				output.emplace_back("[" + section + "]");
 				auto const& collection = it.second;
