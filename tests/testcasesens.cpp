@@ -4,7 +4,7 @@
 #include <utility>
 #include <fstream>
 #include "lest.hpp"
-#define MINI_CASE_SENSITIVE
+//#define MINI_CASE_SENSITIVE
 #include "mini/ini.h"
 
 namespace {
