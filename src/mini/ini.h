@@ -128,13 +128,13 @@ namespace mINI {
 
 	template<typename T>
 	class INIMap {
-		using T_DataIndexMap = std::unordered_map<std::string, std::size_t>;
-		using T_DataItem = std::pair<std::string, T>;
-		using T_DataContainer = std::vector<T_DataItem>;
-		using T_MultiArgs = typename std::vector<std::pair<std::string, T>>;
+		typedef std::unordered_map<std::string, std::size_t>    T_DataIndexMap;
+		typedef std::pair<std::string, T>                       T_DataItem;
+		typedef std::vector<T_DataItem>                         T_DataContainer;
+		typedef typename std::vector<std::pair<std::string, T>> T_MultiArgs;
 
 	public:
-		using const_iterator = typename T_DataContainer::const_iterator;
+		typedef typename T_DataContainer::const_iterator        const_iterator;
 
 		INIMap() { }
 
@@ -244,18 +244,21 @@ namespace mINI {
 		}
 	};
 
-	using INIStructure = INIMap<INIMap<std::string>>;
+	typedef INIMap<INIMap<std::string>> INIStructure;
 
 	namespace INIParser {
-		using T_ParseValues = std::pair<std::string, std::string>;
+		typedef std::pair<std::string, std::string> T_ParseValues;
 
-		enum class PDataType: char {
-			PDATA_NONE,
-			PDATA_COMMENT,
-			PDATA_SECTION,
-			PDATA_KEYVALUE,
-			PDATA_UNKNOWN
-		};
+		namespace pdata_type {
+			enum Enum: char {
+				PDATA_NONE,
+				PDATA_COMMENT,
+				PDATA_SECTION,
+				PDATA_KEYVALUE,
+				PDATA_UNKNOWN
+			};
+		}
+		typedef pdata_type::Enum PDataType;
 
 		inline PDataType parseLine(std::string line, T_ParseValues& parseData) {
 			parseData.first.clear();
@@ -300,12 +303,13 @@ namespace mINI {
 
 	class INIReader {
 	public:
-		using T_LineData = std::vector<std::string>;
-		using T_LineDataPtr = std::shared_ptr<T_LineData>;
+		typedef std::vector<std::string>    T_LineData;
+		typedef std::shared_ptr<T_LineData> T_LineDataPtr;
 
-		bool isBOM = false;
+		bool isBOM;
 
-		INIReader(std::string const& filename, bool keepLineData = false) {
+		INIReader(std::string const& filename, bool keepLineData = false)
+			: isBOM(false) {
 			fileReadStream.open(filename, std::ios::in | std::ios::binary);
 			if (keepLineData) {
 				lineData = std::make_shared<T_LineData>();
@@ -393,9 +397,10 @@ namespace mINI {
 		std::ofstream fileWriteStream;
 
 	public:
-		bool prettyPrint = false;
+		bool prettyPrint;
 
-		INIGenerator(std::string const& filename) {
+		INIGenerator(std::string const& filename)
+			: prettyPrint(false) {
 			fileWriteStream.open(filename, std::ios::out | std::ios::binary);
 		}
 
@@ -447,14 +452,15 @@ namespace mINI {
 	};
 
 	class INIWriter {
-		using T_LineData = std::vector<std::string>;
-		using T_LineDataPtr = std::shared_ptr<T_LineData>;
+		typedef std::vector<std::string>    T_LineData;
+		typedef std::shared_ptr<T_LineData> T_LineDataPtr;
 
 	public:
-		bool prettyPrint = false;
+		bool prettyPrint;
 
 		INIWriter(std::string const& filename)
-			: filename(filename) {
+			: filename(filename)
+			, prettyPrint(false) {
 		}
 
 		~INIWriter() { }
