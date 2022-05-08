@@ -6,6 +6,8 @@
 #include "lest.hpp"
 #include "mini/ini.h"
 
+namespace {
+
 using T_LineData = std::vector<std::string>;
 using T_INIFileData = std::pair<std::string, T_LineData>;
 
@@ -275,7 +277,9 @@ const lest::test mINI_tests[] = {
 	}
 };
 
-int main(int argc, char** argv)
+}
+
+int main_testgenerate(int argc, char** argv)
 {
 	// run tests
 	if (int failures = lest::run(mINI_tests, argc, argv))
@@ -284,4 +288,3 @@ int main(int argc, char** argv)
 	}
 	return std::cout << std::endl << "All tests passed!" << std::endl, EXIT_SUCCESS;
 }
-

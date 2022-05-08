@@ -4,6 +4,8 @@
 #include "lest.hpp"
 #include "mini/ini.h"
 
+namespace {
+
 const std::string filename = "data_huge.ini";
 
 const size_t N_sections = 20;
@@ -48,7 +50,9 @@ const lest::test mINI_tests[] = {
 	}
 };
 
-int main(int argc, char** argv)
+}
+
+int main_testhuge(int argc, char** argv)
 {
 	// run tests
 	if (int failures = lest::run(mINI_tests, argc, argv))

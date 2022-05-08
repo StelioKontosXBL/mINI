@@ -6,6 +6,8 @@
 #include "lest.hpp"
 #include "mini/ini.h"
 
+namespace {
+
 using T_LineData = std::vector<std::string>;
 using T_INIFileData = std::tuple<std::string, T_LineData, T_LineData>;
 
@@ -719,7 +721,9 @@ const lest::test mINI_tests[] = {
 	}
 };
 
-int main(int argc, char** argv)
+}
+
+int main_testwrite(int argc, char** argv)
 {
 	// write test files
 	writeTestFile(testDataBasic);

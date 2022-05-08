@@ -2,6 +2,8 @@
 #include "lest.hpp"
 #include "mini/ini.h"
 
+namespace {
+
 bool compareData(mINI::INIStructure a, mINI::INIStructure b)
 {
 	for (auto const& it : a)
@@ -66,7 +68,9 @@ const lest::test mINI_tests[] = {
 	}
 };
 
-int main(int argc, char** argv)
+}
+
+int main_testcopy(int argc, char** argv)
 {
 	// run tests
 	if (int failures = lest::run(mINI_tests, argc, argv))

@@ -7,6 +7,8 @@
 #define MINI_CASE_SENSITIVE
 #include "mini/ini.h"
 
+namespace {
+
 using T_LineData = std::vector<std::string>;
 using T_INIFileData = std::pair<std::string, T_LineData>;
 
@@ -86,7 +88,9 @@ const lest::test mINI_tests[] = {
 	},
 };
 
-int main(int argc, char** argv)
+}
+
+int main_testcasesens(int argc, char** argv)
 {
 	// write test files
 	writeTestFile(testDataBasic);
