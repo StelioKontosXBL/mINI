@@ -134,7 +134,7 @@ namespace mINI {
 		using T_DataContainer = std::vector<T_DataItem>;
 		using T_MultiArgs = typename std::vector<std::pair<std::string, T>>;
 
-		T_DataIndexMap dataIndexMap;
+		T_DataIndexMap  dataIndexMap;
 		T_DataContainer data;
 
 		inline std::size_t setEmpty(std::string& key) {
@@ -356,6 +356,7 @@ namespace mINI {
 				lineData = std::make_shared<T_LineData>();
 			}
 		}
+
 		~INIReader() { }
 
 		bool operator>>(INIStructure& data) {
@@ -385,9 +386,8 @@ namespace mINI {
 			}
 			return true;
 		}
-		T_LineDataPtr getLines() {
-			return lineData;
-		}
+
+		T_LineDataPtr getLines() { return lineData; }
 	};
 
 	class INIGenerator {
@@ -584,6 +584,7 @@ namespace mINI {
 		INIWriter(std::string const& filename)
 			: filename(filename) {
 		}
+
 		~INIWriter() { }
 
 		bool operator<<(INIStructure& data) {
@@ -632,7 +633,6 @@ namespace mINI {
 	};
 
 	class INIFile {
-	private:
 		std::string filename;
 
 	public:
