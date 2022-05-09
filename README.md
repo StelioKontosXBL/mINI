@@ -1,6 +1,10 @@
-# mINI
+# mINI for MSVC2010
 
 v0.9.13
+
+This is a MSVC 10.0/C++11 compatible backport of the superb INI reader/writer by [pulzed](https://github.com/pulzed/mINI) for use in MSVC2010 projects (`_MSC_VER 1600`) with a limited C++11 feature set.
+
+Library usage remains identical to that of the upstream, with the one exception being that of the `set(multiArgs) ` overload, which uses brace-initializtion-lists (one of the C++11 features not supported by MSC 1600). To provide a reasonably concise alternative, the `set(key, value)` method has been modified to accomodate method chaining. A usage example has been added to the relevent section of this README.
 
 ## Info
 
@@ -195,10 +199,16 @@ Note that when writing to a file, values will be stripped of leading and trailin
 
 You can set multiple values at once by using `set()`:
 ```C++
+// with brace-initialized-lists (requires C++11)
 ini["section"].set({
 	{"key1", "value1"},
 	{"key2", "value2"}
 });
+
+// with method chaining (MSVC2010 compatible)
+ini["section"]
+	.set("key1", "value1")
+	.set("key2", "value2");
 ```
 
 To create an empty section, simply do:
