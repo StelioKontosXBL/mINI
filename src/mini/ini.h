@@ -84,6 +84,16 @@
 #ifndef MINI_INI_H_
 #define MINI_INI_H_
 
+#if __cplusplus < 201103L
+#ifdef _MSC_VER
+#if _MSC_VER < 1600
+#error mINI requires MSVC 10.0 (1600) or greater if not compiling with C++11
+#endif
+#else // ^ #ifdef _MSC_VER
+#error mINI requires C++11 or greater
+#endif
+#endif
+
 #include <string>
 #include <sstream>
 #include <algorithm>
@@ -177,7 +187,7 @@ namespace mINI {
 			return (dataIndexMap.count(key) == 1);
 		}
 
-		void set(std::string key, T obj) {
+		INIMap<T>& set(std::string key, T obj) {
 			INIStringUtil::trim(key);
 			#ifndef MINI_CASE_SENSITIVE
 			INIStringUtil::toLower(key);
@@ -189,6 +199,7 @@ namespace mINI {
 				dataIndexMap[key] = data.size();
 				data.emplace_back(T_DataItem(key, obj));
 			}
+			return *this;
 		}
 
 		void set(T_MultiArgs const& multiArgs) {
